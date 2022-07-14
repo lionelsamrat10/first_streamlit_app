@@ -26,4 +26,4 @@ st.header("Fruityvice Fruit Advice!")
 # Calling API from Streamlit
 import requests as req
 fruityvice_response = req.get("https://fruityvice.com/api/fruit/watermelon")
-st.text(fruityvice_response)
+st.text(fruityvice_response.json())
