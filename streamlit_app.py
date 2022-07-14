@@ -2,7 +2,9 @@ import streamlit
 import pandas as pd
 import snowflake.connector
 from urllib.error import URLError
+import requests as req
 #import snowflake.connector
+
 streamlit.title("My Parents' New Healthy Diner") 
 
 streamlit.header("Breakfast Menu")
@@ -25,9 +27,9 @@ streamlit.dataframe(fruits_to_show)
 
 # New section to display fruityvice API Response
 streamlit.header("Fruityvice Fruit Advice!")
-fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
-streamlit.write('The user entered ', fruit_choice)# Calling API from Streamlit
-import requests as req
+fruit_choice = streamlit.text_input('What fruit would you like information about?')
+# streamlit.write('The user entered ', fruit_choice)# Calling API from Streamlit
+
 fruityvice_response = req.get("https://fruityvice.com/api/fruit/" + fruit_choice)
 # st.text(fruityvice_response.json()) # Writes the data on screen
 
