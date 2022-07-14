@@ -25,8 +25,8 @@ st.dataframe(fruits_to_show)
 st.header("Fruityvice Fruit Advice!")
 # Calling API from Streamlit
 import requests as req
-fruityvice_response = req.get("https://fruityvice.com/api/fruit/watermelon")
-st.text(fruityvice_response.json()) # Writes the data on screen
+fruityvice_response = req.get("https://fruityvice.com/api/fruit/" + "kiwi")
+# st.text(fruityvice_response.json()) # Writes the data on screen
 
 # Take the JSON response and normalize it 
 fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
