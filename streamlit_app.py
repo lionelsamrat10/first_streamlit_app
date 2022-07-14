@@ -1,13 +1,13 @@
-import streamlit as st
+import streamlit
 import pandas as pd
 #import snowflake.connector
-st.title("My Parents' New Healthy Diner") 
+streamlit.title("My Parents' New Healthy Diner") 
 
-st.header("Breakfast Menu")
-st.text("🥣 Omega 3 and Blueberry Oatmeal")
-st.text("🥗 Kale, Spinach & Rocket Smoothie")
-st.text("🐔 Hard-Boiled Free-Range Egg")
-st.text("🥑🍞 Avocado Toast")
+streamlit.header("Breakfast Menu")
+streamlit.text("🥣 Omega 3 and Blueberry Oatmeal")
+streamlit.text("🥗 Kale, Spinach & Rocket Smoothie")
+streamlit.text("🐔 Hard-Boiled Free-Range Egg")
+streamlit.text("🥑🍞 Avocado Toast")
  
 st.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇') 
 
@@ -16,14 +16,14 @@ my_fruit_list = my_fruit_list.set_index('Fruit')
 
 
 # Let's put a pick list here so they can pick the fruit they want to include 
-fruits_selected = st.multiselect("Pick some fruits:", list(my_fruit_list.index), ['Avocado', 'Strawberries'])
+fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index), ['Avocado', 'Strawberries'])
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 # Display the table on the page
-st.dataframe(fruits_to_show)
+streamlit.dataframe(fruits_to_show)
 
 # New section to display fruityvice API Response
-st.header("Fruityvice Fruit Advice!")
-fruit_choice = st.text_input('What fruit would you like information about?','Kiwi')
+streamlit.header("Fruityvice Fruit Advice!")
+fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
 st.write('The user entered ', fruit_choice)# Calling API from Streamlit
 import requests as req
 fruityvice_response = req.get("https://fruityvice.com/api/fruit/" + fruit_choice)
@@ -32,14 +32,14 @@ fruityvice_response = req.get("https://fruityvice.com/api/fruit/" + fruit_choice
 # Take the JSON response and normalize it 
 fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 # Output it on the screen as a table
-st.dataframe(fruityvice_normalized)
+streamlit.dataframe(fruityvice_normalized)
 
 import snowflake.connector
 
 
-my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
+my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
 my_data_row = my_cur.fetchone()
-st.text("Hello from Snowflake:")
-st.text(my_data_row)
+streamlit.text("Hello from Snowflake:")
+streamlit.text(my_data_row)
